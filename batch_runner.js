@@ -178,14 +178,15 @@ async function runSingleScriptedTest(tc, chatClient, tablesClient, verbose) {
 
   const allBotResponses = [];
   const messageCounts = [];
+  const seenMessageIds = new Set();
 
   for (let j = 0; j < tc.visitor_messages.length; j++) {
     const msg = tc.visitor_messages[j];
     if (verbose) console.log(`  Visitor [${j}]: ${msg.slice(0, 80)}...`);
 
     await chatClient.sendMessage(userKey, conversation.id, msg);
-    await sleep(1000);
-    const botMsgs = await chatClient.waitForBotResponses(userKey, conversation.id, user.id);
+    await sleep(2000);
+    const botMsgs = await chatClient.waitForBotResponses(userKey, conversation.id, user.id, seenMessageIds);
 
     const turnText = botMsgs.map(m => m.text).join('\n');
     allBotResponses.push({ text: turnText, messageCount: botMsgs.length });
@@ -196,6 +197,17 @@ async function runSingleScriptedTest(tc, chatClient, tablesClient, verbose) {
     if (j < tc.visitor_messages.length - 1) {
       await sleep(SCRIPTED_MESSAGE_DELAY);
     }
+  }
+
+  // Wait for conversation to end before checking tables
+  const completionType = tc.completion_type || 'complete';
+  if (completionType === 'timeout') {
+    const TIMEOUT_WAIT = 5 * 60 * 1000 + 15000; // 5 min + 15s buffer
+    if (verbose) console.log(`  Waiting ${TIMEOUT_WAIT / 1000}s for timeout-based conversation end...`);
+    await sleep(TIMEOUT_WAIT);
+  } else {
+    // Complete conversations — wait a few seconds for data to be written
+    await sleep(5000);
   }
 
   // Look up LeadsTable

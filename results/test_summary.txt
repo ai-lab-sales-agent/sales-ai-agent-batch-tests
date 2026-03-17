@@ -1,0 +1,13 @@
+=== BATCH TEST SUMMARY ===
+Generated: 2026-03-17T16:17:11.297Z
+
+--- LEVEL 2: SCRIPTED TESTS ---
+Total: 1 | PASS: 1 | FAIL: 0 | PARTIAL: 0 | ERROR: 0 | SKIPPED: 0
+Pass rate: 100.0%
+
+  P0: 1/1 passed
+
+  Discovery: 1/1 passed
+
+--- CONVERSATION IDS (for Dashboard lookup) ---
+  DISC-001: conv_01KKY9AHESZ6V6PHSPTF2TBKYN
