@@ -1,5 +1,5 @@
 === BATCH TEST SUMMARY ===
-Generated: 2026-03-20T14:58:26.848Z
+Generated: 2026-03-20T14:58:26.846Z
 
 --- LEVEL 3: PERSONA TESTS ---
   P01 Skeptical Fintech CEO: avg=3/5 | top issue: Bot repeatedly ignored direct questions (especially timeline) and repeated the same information verbatim when pressed, damaging credibility with a trust-focused skeptic

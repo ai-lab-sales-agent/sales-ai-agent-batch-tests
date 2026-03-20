@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require('dotenv').config();
+require('dotenv').config({ override: true });
 
 const fs = require('fs');
 const path = require('path');
@@ -29,6 +29,7 @@ function parseArgs() {
       case '--sheet': opts.sheet = args[++i]; break;
       case '--test': opts.testId = args[++i]; break;
       case '--persona': opts.personaId = args[++i]; break;
+      case '--exclude': opts.excludePersonas = args[++i].split(','); break;
       case '--verbose': opts.verbose = true; break;
       case '--dry-run': opts.dryRun = true; break;
       case '--help':
@@ -202,7 +203,7 @@ async function runSingleScriptedTest(tc, chatClient, tablesClient, verbose) {
   // Wait for conversation to end before checking tables
   const completionType = tc.completion_type || 'complete';
   if (completionType === 'timeout') {
-    const TIMEOUT_WAIT = 5 * 60 * 1000 + 15000; // 5 min + 15s buffer
+    const TIMEOUT_WAIT = 2 * 60 * 1000 + 15000; // 2 min + 15s buffer
     if (verbose) console.log(`  Waiting ${TIMEOUT_WAIT / 1000}s for timeout-based conversation end...`);
     await sleep(TIMEOUT_WAIT);
   } else {
@@ -210,14 +211,17 @@ async function runSingleScriptedTest(tc, chatClient, tablesClient, verbose) {
     await sleep(5000);
   }
 
-  // Look up LeadsTable
-  const email = extractTestEmail(tc);
+  // Look up LeadsTable by visitor_id (more reliable than email)
   let tableRow = null;
-  if (email) {
-    if (verbose) console.log(`  Looking up LeadsTable for: ${email}`);
-    tableRow = await tablesClient.findLeadByEmail(email);
-    if (verbose) console.log(`  Table row: ${tableRow ? 'found' : 'not found'}`);
+  if (verbose) console.log(`  LeadsTable lookup by visitor_id (${user.id})`);
+  tableRow = await tablesClient.findLeadByVisitorId(user.id);
+  if (!tableRow) {
+    // Retry after additional wait — table write may lag
+    if (verbose) console.log(`  Not found, retrying in 15s...`);
+    await sleep(15000);
+    tableRow = await tablesClient.findLeadByVisitorId(user.id);
   }
+  if (verbose) console.log(`  LeadsTable: ${tableRow ? 'found, lead_score=' + tableRow.lead_score : 'not found'}`);
 
   const checkResults = runChecks(tc.expected_checks, allBotResponses, tableRow);
   const overall = computeOverallResult(checkResults);
@@ -263,6 +267,9 @@ async function runPersonaTests(chatClient, tablesClient, claudeClient, opts) {
   if (opts.personaId) {
     personas = personas.filter(p => p.persona_id === opts.personaId);
   }
+  if (opts.excludePersonas) {
+    personas = personas.filter(p => !opts.excludePersonas.includes(p.persona_id));
+  }
 
   console.log(`Found ${personas.length} personas to run.`);
 
@@ -282,21 +289,60 @@ async function runPersonaTests(chatClient, tablesClient, claudeClient, opts) {
 
     try {
       // Run conversation
-      const { conversation, user, transcript, turnCount, forceEnded } =
+      const { conversation, user, userKey, transcript, turnCount, forceEnded } =
         await runPersonaConversation(persona, chatClient, claudeClient, opts.verbose);
 
       console.log(`  Turns: ${turnCount}${forceEnded ? ' (force-ended)' : ''} | Conversation: ${conversation.id}`);
 
+      // Wait for bot timeout to trigger conversation end + table writes
+      const PERSONA_TIMEOUT_WAIT = 2 * 60 * 1000 + 15000; // 2 min + 15s buffer
+      if (opts.verbose) console.log(`  Waiting ${PERSONA_TIMEOUT_WAIT / 1000}s for bot timeout and table writes...`);
+      await sleep(PERSONA_TIMEOUT_WAIT);
+
+      // Fetch ALL messages after timeout (bot may send closing messages with Cal.com link)
+      const allPostTimeoutMessages = await chatClient.getAllMessages(userKey, conversation.id);
+      const postTimeoutBotMessages = allPostTimeoutMessages
+        .filter(m => m.userId !== user.id)
+        .map(m => {
+          const text = m.payload?.text || m.payload?.markdown || '';
+          return { text, payload: m.payload };
+        })
+        .filter(m => m.text);
+
+      if (opts.verbose) {
+        const postConvCount = postTimeoutBotMessages.length - transcript.filter(t => t.role === 'bot').length;
+        if (postConvCount > 0) {
+          console.log(`  Found ${postConvCount} additional bot messages after timeout (closing flow)`);
+        }
+      }
+
       // Evaluate
       const evaluation = await evaluatePersona(persona, transcript, claudeClient, opts.verbose);
 
-      // Look up LeadsTable
-      const email = `test-${persona.persona_id.toLowerCase()}@test.halo-lab.team`;
-      const tableRow = await tablesClient.findLeadByEmail(email);
+      // Look up tables by visitor_id (user.id) — exact match, no ambiguity
+      // Retry up to 3 times with 15s delay if LeadsTable row not found (scoring may take time after timeout)
+      let tableRow = null;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        tableRow = await tablesClient.findLeadByVisitorId(user.id);
+        if (tableRow) break;
+        if (attempt < 3) {
+          if (opts.verbose) console.log(`  LeadsTable not found yet, retrying in 15s (attempt ${attempt}/3)...`);
+          await sleep(15000);
+        }
+      }
+      if (opts.verbose) console.log(`  LeadsTable lookup by visitor_id (${user.id}): ${tableRow ? 'found, lead_score=' + tableRow.lead_score : 'not found'}`);
+      const contactFormRow = await tablesClient.findContactFormByConversationId(conversation.id);
+      const conversationLog = await tablesClient.findConversationLog(conversation.id);
+      if (opts.verbose) {
+        console.log(`  LeadsTable: ${tableRow ? 'found' : 'not found'}`);
+        console.log(`  ContactFormTable: ${contactFormRow ? 'found' : 'not found'}`);
+        console.log(`  Conversation_LogsTable: ${conversationLog ? 'found' : 'not found'}`);
+      }
 
-      // Run automated checks
+      // Run automated checks using ALL bot messages (including post-timeout closing messages)
+      const allBotResponses = postTimeoutBotMessages.map(m => ({ text: m.text, messageCount: 1 }));
       const checkResults = runChecks(persona.expected_checks || [],
-        transcript.filter(t => t.role === 'bot'), tableRow);
+        allBotResponses, tableRow, { contactFormRow, conversationLog });
       const overall = computeOverallResult(checkResults);
 
       const messageCounts = transcript.filter(t => t.role === 'bot').map(t => t.messageCount || 1);
@@ -358,13 +404,15 @@ async function runPersonaTests(chatClient, tablesClient, claudeClient, opts) {
     }
   }
 
-  // Write persona evaluations
+  // Write persona evaluations (will be copied to run dir by saveResults caller)
   if (evaluations.length > 0) {
     fs.writeFileSync(
       path.join(RESULTS_DIR, 'persona_evaluations.json'),
       JSON.stringify(evaluations, null, 2)
     );
   }
+  // Store for run dir saving
+  global._personaEvaluations = evaluations;
 
   return results;
 }
@@ -373,10 +421,30 @@ async function runPersonaTests(chatClient, tablesClient, claudeClient, opts) {
 
 function saveResults(scriptedResults, personaResults) {
   const allResults = [...scriptedResults, ...personaResults];
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  const runDir = path.join(RESULTS_DIR, `run_${timestamp}`);
+  fs.mkdirSync(runDir, { recursive: true });
+
+  if (allResults.length > 0) {
+    writeResults(path.join(runDir, 'test_results.csv'), allResults);
+  }
+  writeSummary(path.join(runDir, 'test_summary.txt'), scriptedResults, personaResults);
+
+  // Also write latest (symlink-like) for quick access
   if (allResults.length > 0) {
     writeResults(path.join(RESULTS_DIR, 'test_results.csv'), allResults);
   }
   writeSummary(path.join(RESULTS_DIR, 'test_summary.txt'), scriptedResults, personaResults);
+
+  // Copy persona evaluations to run dir
+  if (global._personaEvaluations && global._personaEvaluations.length > 0) {
+    fs.writeFileSync(
+      path.join(runDir, 'persona_evaluations.json'),
+      JSON.stringify(global._personaEvaluations, null, 2)
+    );
+  }
+
+  console.log(`Results saved to ${runDir}`);
 }
 
 // --- Run ---

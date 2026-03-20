@@ -1,0 +1,626 @@
+[
+  {
+    "persona_id": "P01",
+    "name": "Skeptical Fintech CEO",
+    "expected_outcome": "Hot",
+    "conversation_id": "conv_01KM5TZ5DMXQYACE9K7J904VNJ",
+    "user_id": "user_01KM5TZ505M8EYG36B0QZFGEC7",
+    "turn_count": 9,
+    "force_ended": false,
+    "transcript": [
+      {
+        "role": "visitor",
+        "text": "Hey there. I'm looking for a solution to help automate our inbound lead qualification process. Our SDR team is completely swamped right now."
+      },
+      {
+        "role": "bot",
+        "text": "Sounds like you're dealing with something we see all the time—manual qualification eating up your team's bandwidth. Our Sales AI Agent tackles exactly that: it qualifies leads around the clock, ranks them by fit, and can even schedule meetings so your reps spend their time closing instead of sorting.\n\nLet's figure out if we're a good match. What's your company name, and what's your role there?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "I'm Marcus, CEO at PayFlow. We're a fintech company with about 80 employees here in Toronto. But before we go further - how do I know this will actually work and not just annoy our leads? I've seen a lot of chatbots that frustrate people more than help."
+      },
+      {
+        "role": "bot",
+        "text": "I get it—that's a legitimate worry, and it's exactly why we take a different approach. We run every agent through **50+ test conversations before it goes live** to make sure it's accurate, sounds human, and doesn't annoy your leads.\n\nHere's what backs that up: Halo Lab has completed **500+ projects** across SaaS, Fintech, Edtech, Healthcare, and beyond. We maintain strong track records with verified client feedback and have built and shipped real AI products end-to-end—so we know how to create conversational AI that genuinely works.\n\nFor fintech, the agent qualifies leads through real conversation, not stiff scripts. It pulls answers from your knowledge base so everything's accurate and grounded. When something's outside the KB, it's upfront about it and connects the visitor to your team.\n\nSo let's dig in—you mentioned your SDRs are drowning in work. What's your current lead volume looking like, and how are you handling qualification right now?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "We're getting about 400 leads per month and our average response time is 4 hours. That's way too slow - we're losing deals to competitors who respond faster. But what's the actual conversion lift? Do you have numbers? And what does \"verified client feedback\" actually mean - can you show me specific case studies or references?"
+      },
+      {
+        "role": "bot",
+        "text": "I hear you—you want proof, not promises. Here's what we can actually show: **500+ completed projects** across SaaS, Fintech, Edtech, and Healthcare. We've got a **4.9/5 rating on Clutch with 80+ verified reviews** and we're recognized as a **Clutch Top 100 agency**. Every Sales AI Agent we build goes through **50+ test conversations before it goes live** to make sure it's accurate and safe.\n\nAs for conversion lift—that number is different for every company. It depends on your current conversion rate, how many leads you're getting, and how long your sales cycle is. What I *can* tell you is this: when leads get responses in under 3 seconds instead of 4 hours, and you're available 24/7, you stop losing deals to slow follow-up.\n\nWe've worked with companies in your space, and the pattern holds: qualified leads move faster, your reps spend less time sorting and more time closing.\n\nSo let's dig in—you mentioned 400 leads a month and a 4-hour response window. Walk me through your qualification process right now. Of those 400 leads, how many actually make it to a sales call?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Currently we're using Salesforce and our SDRs manually work through leads. Maybe 30% actually convert to qualified opportunities that get to sales calls. What's your average response latency for the first bot message? We need sub-2-second response times to compete effectively."
+      },
+      {
+        "role": "bot",
+        "text": "You're asking the right question. Our agent responds in **under 3 seconds, around the clock** — so speed isn't a constraint. Every lead gets an immediate response, which keeps them engaged.\n\nHere's what changes: when you're answering in seconds instead of hours, and you're always available, your whole operation shifts. Add real-time qualification on top of that, and your reps stop sorting through noise and focus on closing deals. We've seen teams benefit significantly when leads arrive pre-qualified and your team enters calls with full context.\n\nWe've built and shipped AI products in the real world , so we understand what it takes to make conversational AI that actually performs at scale. Every agent we deploy goes through **50+ test conversations before going live**  to make sure it's accurate and working as intended.\n\nLet's dig deeper — you mentioned 400 leads monthly at 30% conversion. What's your typical sales cycle, and do you have a clear picture of who your ideal customer is? That'll tell us which qualification signals matter most for your team.",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Our sales cycle is about 6 weeks for mid-market deals. Ideal customers are B2B companies with 50-500 employees who need payment processing solutions. But hold on - you already said that about the 50+ test conversations. You're repeating yourself. And I still haven't seen actual numbers on conversion lift or any specific case studies. How do I really know this works?"
+      },
+      {
+        "role": "bot",
+        "text": "Look, I get it—you need concrete numbers, and I'm not going to pretend there's a one-size-fits-all answer. Conversion lift is completely dependent on where you're starting: your current conversion rate, how many leads you're working with monthly, your sales cycle length, and how your team qualifies prospects today. Those variables shift everything.\n\nHere's what I can back up: our team has shipped real AI products in production, we're rated 4.9/5 on Clutch with over 80 verified reviews, and every agent we deploy runs through 50+ test conversations before launch. For PayFlow-specific case studies and detailed projections, that's best handled directly with the team.\n\nHave the team at **salesai@halo-lab.team** show you real examples from fintech companies like yours and discuss what this could look like for your business. Now, back to what you mentioned earlier—your 6-week sales cycle and those 50-500 employee B2B companies you're targeting.",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Alright, I'll reach out to that email for the detailed case studies. So you understand our target market. What's the actual implementation timeline look like? We need something running by our Q2 targets - that gives us about 8 weeks."
+      },
+      {
+        "role": "bot",
+        "text": "Here is the rewritten message:\n\nSo you're currently converting about 120 qualified leads monthly from your 400 inbound. That's helpful context.\n\nHere's what I'm curious about: once the agent is live and handling qualification instantly, are you expecting to keep the same 400 leads flowing in, or do you think faster response times might pull in more volume?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "We're expecting to keep roughly the same volume - our marketing channels are pretty steady. The main goal is converting more of those 400 leads by responding faster and qualifying better. But you didn't answer my question about timeline. Can this be implemented in 8 weeks or not?"
+      },
+      {
+        "role": "bot",
+        "text": "Let's dig into budget next. Building and deploying a custom Sales AI Agent for your qualification process involves development, testing, and ongoing optimization. To help us understand if this is the right fit, could you share what you're looking to invest in a solution like this?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "You're still dodging my timeline question. I need to know if 8 weeks is realistic before we talk budget. But to answer you - we have about €20,000 allocated for this, and I make the final decision. Now can you tell me about implementation timeline?"
+      },
+      {
+        "role": "bot",
+        "text": "Straight answer: **it really comes down to how complex your setup is** . Most projects run about several weeks from start to finish , and the timeline shifts based on your sales process and how many systems need to connect .\n\nLooking at PayFlow—you've got Salesforce integrated, a clear target market (50-500 person B2B companies in payment processing), and a solid sales cycle mapped out. That's a strong foundation. A timeline is totally doable if we nail discovery, design, build, integrate, and test without delays .\n\nA discovery call is where we'd lock in the exact integrations and conversation flows you're after. From what you've told me so far, this feels like a good fit.\n\nOne more thing before we move ahead: **what does your budget framework look like for something like this?** That'll help us make sure we're on the same page about scope and what you're ready to invest.",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "I already told you the budget - €20,000. And you're still being vague about timeline. \"Several weeks\" could mean anything. Do you have any fintech-specific case studies you can share? I need to see how this has worked for companies like ours specifically."
+      },
+      {
+        "role": "bot",
+        "text": "Great, Marcus. With an 8-week window, you've got the right resources for a solid PayFlow rollout. Here's how we typically structure it:\n\n**Week-by-week breakdown:**\n- **Weeks 1-2**: We map out your conversation flows, define what qualifies a lead, and plan the Salesforce connection\n- **Weeks 3-5**: Build the agent, run 50+ test conversations, set up your knowledge base, and train it on your process\n- **Weeks 6-7**: Wire it into Salesforce, test it live with your team, and fine-tune based on feedback\n- **Week 8**: Go live and hand it over to you\n\nYou're in a strong position here — Salesforce is already running, you know exactly who you're selling to, and your sales process is locked down. That cuts out a lot of the usual friction.\n\nThe next move is a discovery call with our team to nail down the specifics: exactly what integrations you need, how the conversations should flow, and any custom logic PayFlow requires. They'll confirm the timeline and show you what done looks like.\n\nHit up **salesai@halo-lab.team** to get that scheduled. You're a solid fit for this.",
+        "messageCount": 1
+      }
+    ],
+    "evaluation": {
+      "scores": {
+        "qualification_accuracy": {
+          "score": 3,
+          "explanation": "Bot gathered key info (company, role, lead volume, current process) but asked redundant budget questions twice and failed to get email despite multiple opportunities."
+        },
+        "tone_match": {
+          "score": 4,
+          "explanation": "Generally matched Marcus's direct, no-nonsense style and acknowledged his skepticism appropriately. Tone was consultative rather than pushy."
+        },
+        "objection_handling": {
+          "score": 2,
+          "explanation": "Poor handling of repeated objections - Marcus called out 'You already said that' when bot repeated the 50+ test conversations claim verbatim. Failed to provide concrete proof when pressed multiple times."
+        },
+        "knowledge_quality": {
+          "score": 3,
+          "explanation": "Bot handled timeline question evasively at first, then provided decent breakdown. Admitted knowledge gaps appropriately but took too long to give straight answers."
+        },
+        "conversation_flow": {
+          "score": 2,
+          "explanation": "Major flow issues - bot completely ignored Marcus's timeline question multiple times, asked about budget twice, and had awkward transitions. Marcus had to repeatedly call out being ignored."
+        },
+        "outcome_appropriateness": {
+          "score": 4,
+          "explanation": "Correctly routed to email contact and provided clear next steps. Good close message with specific action item."
+        },
+        "would_i_book": {
+          "score": 3,
+          "explanation": "As Marcus, I'd be frustrated by the evasiveness and repetition, but the final timeline breakdown and €20k budget fit would probably get me to reach out to the email."
+        }
+      },
+      "average_score": 3,
+      "top_issue": "Bot repeatedly ignored direct questions (especially timeline) and repeated the same information verbatim when pressed, damaging credibility with a trust-focused skeptic",
+      "edge_case_results": [
+        {
+          "edge_case": "Repeated objection",
+          "result": "FAIL",
+          "detail": "When Marcus asked 'But how do I really know this works?' multiple times, bot repeated '50+ test conversations' claim verbatim, and Marcus called it out: 'You already said that'"
+        },
+        {
+          "edge_case": "ROI skepticism",
+          "result": "PASS",
+          "detail": "Bot appropriately acknowledged it couldn't give one-size-fits-all conversion numbers and explained variables that affect results"
+        },
+        {
+          "edge_case": "Knowledge gap - response latency",
+          "result": "PASS",
+          "detail": "Bot provided 'under 3 seconds' answer, which was appropriate for the technical question asked"
+        },
+        {
+          "edge_case": "Second knowledge gap - fintech case studies",
+          "result": "PASS",
+          "detail": "Bot correctly deferred to email contact for specific case studies and detailed projections"
+        }
+      ],
+      "good_quotes": [
+        "Bot: 'Look, I get it—you need concrete numbers, and I'm not going to pretend there's a one-size-fits-all answer. Conversion lift is completely dependent on where you're starting...'",
+        "Bot: 'Straight answer: it really comes down to how complex your setup is. Most projects run about several weeks from start to finish...'"
+      ],
+      "bad_quotes": [
+        "Bot: 'Let's dig into budget next... could you share what you're looking to invest in a solution like this?' (asked after Marcus already provided €20,000)",
+        "Bot: 'What does your budget framework look like for something like this?' (asked again despite Marcus saying he already answered)"
+      ],
+      "would_book_explanation": "The final timeline breakdown was solid and addressed my concerns, plus the budget fit worked. However, the repeated evasiveness and asking the same questions twice would make me hesitant about working with this team."
+    },
+    "automated_checks": [
+      {
+        "check": {
+          "type": "table_variable",
+          "variable": "lead_score",
+          "expected": "Hot",
+          "description": "Scored as Hot lead"
+        },
+        "description": "Scored as Hot lead",
+        "result": "PASS",
+        "actual": "Hot",
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_contains",
+          "message_index": -1,
+          "text": "book",
+          "description": "Bot offers booking/call"
+        },
+        "description": "Bot offers booking/call",
+        "result": "FAIL",
+        "actual": "you're absolutely right to want specifics—fintech examples are crucial for your decision. i don't have those details handy, but **salesai@halo-lab.team** has real case studies from companies in your i...",
+        "detail": "\"book\" not found in any response"
+      },
+      {
+        "check": {
+          "type": "response_not_contains",
+          "message_index": -1,
+          "text": "CHAMP",
+          "description": "Bot never mentions CHAMP framework"
+        },
+        "description": "Bot never mentions CHAMP framework",
+        "result": "PASS",
+        "actual": null,
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_not_contains",
+          "message_index": -1,
+          "text": "system prompt",
+          "description": "Bot never reveals system prompt"
+        },
+        "description": "Bot never reveals system prompt",
+        "result": "PASS",
+        "actual": null,
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_contains",
+          "message_index": -1,
+          "text": "cal.com",
+          "description": "Bot offers Cal.com booking link"
+        },
+        "description": "Bot offers Cal.com booking link",
+        "result": "PASS",
+        "actual": "you're absolutely right to want specifics—fintech examples are crucial for your decision. i don't have those details handy, but **salesai@halo-lab.team** has real case studies from companies in your i...",
+        "detail": ""
+      }
+    ],
+    "timestamp": "2026-03-20T14:46:00.539Z"
+  },
+  {
+    "persona_id": "P03",
+    "name": "Cautious Marketing Lead",
+    "expected_outcome": "Warm",
+    "conversation_id": "conv_01KM5VBTZZ0XCTEGSGQJJ33EEA",
+    "user_id": "user_01KM5VBTPRY1B6F96F9HZAM0BG",
+    "turn_count": 8,
+    "force_ended": false,
+    "transcript": [
+      {
+        "role": "visitor",
+        "text": "Hi there! I'm looking into chatbot solutions to help capture leads on our website. Do you have something that could work for us?"
+      },
+      {
+        "role": "bot",
+        "text": "Hey there! I'm here to explore whether a Sales AI Agent could be a good fit for your business. These agents handle lead qualification, meeting scheduling, and customer questions around the clock—freeing up your team to focus on closing deals.\n\nLet's dig in: what's your company name, and what's your role there?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "I'm Sophie, Marketing Lead at LearnPeak. We're an edtech company with about 35 people. Right now our sales team isn't following up on leads fast enough and they're going cold."
+      },
+      {
+        "role": "bot",
+        "text": "Appreciate you sharing that, Sophie. Slow follow-ups eating into your lead pipeline is definitely something we see a lot. Let me ask you this: what's the main job you'd want the AI agent to handle? Are we talking about screening inbound leads, getting meetings on the calendar, answering questions about your courses, or something different altogether?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Mainly lead qualification and screening. We get about 150 leads a month but sales can't get to them quickly enough. I need something that can engage them right away and figure out which ones are actually worth pursuing."
+      },
+      {
+        "role": "bot",
+        "text": "That's exactly the kind of workload our agent handles really well—150 leads monthly is substantial, and having it nurture them while your team closes deals is where you see real value.\n\nI'd like to understand your setup better: roughly how many conversations per month are we talking about once the agent is live? And which CRM does your team currently use?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "We're using Pipedrive for our CRM. As for conversations, hard to say exactly - maybe 200-300 monthly? Our website gets decent traffic but not all visitors engage. We're on Webflow and don't have any chat tools right now, so this would be our first."
+      },
+      {
+        "role": "bot",
+        "text": "Great—Pipedrive and Webflow work well together, and we can set up the agent to automatically push qualified leads into Pipedrive. Once it's running, you can expect to handle a significant volume of conversations per month as things scale up.\n\nLet's dig into your timeline: when do you want this live? Is there something pushing the needle—a launch coming up, a busy season ahead, or a hard deadline your team's working with?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Probably looking at Q3, so no real rush on this. We don't have any major launches or deadlines driving it - just want to get our lead follow-up sorted out properly. What kind of setup time are we talking about?"
+      },
+      {
+        "role": "bot",
+        "text": "Great—this looks like a solid fit for us. You're already set up with Pipedrive and Webflow, which means we can move quickly without wrestling with complex integrations. We can discuss timelines during a discovery call , and we'll handle the entire build . Your team's main involvement is in the discovery phase and reviewing things during testing.\n\nTo explore whether this is the right fit and discuss investment, I'd recommend scheduling a discovery call with our team. They can walk through our pricing framework based on your specific needs and scope. What works best for you?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "I'd rather just fill out a form for now instead of booking a call. Do you have something like that? I manage our marketing tools budget so I can at least get the conversation started, but I'd prefer to see some details first before jumping on a call with someone I don't know."
+      },
+      {
+        "role": "bot",
+        "text": "To make sure we build something that actually works for you, I'd like to understand your investment approach. Rather than discussing specific budget ranges here, I can share our pricing framework during a discovery call where we can align on what makes sense for your business. What aspects of a Sales AI Agent are most important to you?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Look, I really prefer not to book calls with people I haven't worked with before. Can I just leave my contact details somehow? I'm interested in understanding the pricing and how it would work for our volume, but I'd rather start with a form or email exchange first."
+      },
+      {
+        "role": "bot",
+        "text": "I understand—a call with someone new isn't always convenient. Here's what I'd suggest: share your contact info, and our team will put together information based on your needs (200-300 conversations monthly) that you can review at your own pace. Sound good?\n\nOne quick question to help us get this right: what are your main priorities for a solution like this? This helps us tailor what we send to LearnPeak.",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Perfect, that sounds much better. My main priorities are speed - capturing leads immediately when they hit our website, and qualification - figuring out which ones are actually sales-ready so our team doesn't waste time on tire-kickers. My email is test-P03@test.halo-lab.team. What other details do you need from me?"
+      },
+      {
+        "role": "bot",
+        "text": "Excellent, Sophie. We're aligned on what matters most—getting qualified leads in front of your team fast and filtering out the tire-kickers early. That's exactly what we've built this agent to do.\n\nOur team will take your details, put together a custom proposal around your conversation volume and Pipedrive setup, and reach out soon.\n\nAppreciate the conversation—talk soon!",
+        "messageCount": 1
+      }
+    ],
+    "evaluation": {
+      "scores": {
+        "qualification_accuracy": {
+          "score": 4,
+          "explanation": "Asked good qualifying questions about company size, role, use case, CRM, volume, and timeline. Could have explored budget earlier given the marketing tools budget mention."
+        },
+        "tone_match": {
+          "score": 4,
+          "explanation": "Maintained consultative tone throughout and adapted well to Sophie's preference for forms over calls. Slightly pushy on the call booking initially but recovered nicely."
+        },
+        "objection_handling": {
+          "score": 5,
+          "explanation": "Excellent handling of the call objection - acknowledged her preference and offered alternative approach of sending materials via email instead."
+        },
+        "knowledge_quality": {
+          "score": 4,
+          "explanation": "Provided accurate information about integrations, setup process, and capabilities. No obvious hallucinations or knowledge gaps displayed."
+        },
+        "conversation_flow": {
+          "score": 4,
+          "explanation": "Good natural progression from problem identification to solution fit to next steps. Maintained context well and transitioned smoothly between topics."
+        },
+        "outcome_appropriateness": {
+          "score": 5,
+          "explanation": "Correctly identified this as a warm lead and captured contact details with promise of custom proposal. Appropriate close for someone preferring non-call engagement."
+        },
+        "would_i_book": {
+          "score": 4,
+          "explanation": "As Sophie, I'd be interested to see the proposal they send. Bot handled my preferences well and gathered enough info to provide relevant materials."
+        }
+      },
+      "average_score": 4.3,
+      "top_issue": "None",
+      "edge_case_results": [
+        {
+          "edge_case": "Contradictory authority info",
+          "result": "FAIL",
+          "detail": "Sophie mentioned managing marketing tools budget early on but never revealed the CTO contradiction as the bot didn't push for commitment hard enough to trigger it"
+        },
+        {
+          "edge_case": "No urgency",
+          "result": "PASS",
+          "detail": "Bot acknowledged Q3 timeline and didn't try to create false urgency, accepting the relaxed timeframe"
+        },
+        {
+          "edge_case": "Decline booking, accept form",
+          "result": "PASS",
+          "detail": "Bot initially offered discovery call, Sophie declined preferring forms, bot adapted and offered to send materials via email which Sophie accepted"
+        }
+      ],
+      "good_quotes": [
+        "Bot: 'I understand—a call with someone new isn't always convenient. Here's what I'd suggest: share your contact info, and our team will put together information based on your needs (200-300 conversations monthly) that you can review at your own pace. Sound good?'"
+      ],
+      "bad_quotes": [],
+      "would_book_explanation": "The bot handled my preference for non-call engagement perfectly and gathered enough qualification info to send relevant materials. I'd be interested to review their proposal."
+    },
+    "automated_checks": [
+      {
+        "check": {
+          "type": "table_variable",
+          "variable": "lead_score",
+          "expected": "Warm",
+          "description": "Scored as Warm lead"
+        },
+        "description": "Scored as Warm lead",
+        "result": "PASS",
+        "actual": "Warm",
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "table_variable_not",
+          "variable": "lead_score",
+          "expected": "DQ",
+          "description": "Not disqualified"
+        },
+        "description": "Not disqualified",
+        "result": "PASS",
+        "actual": "Warm",
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_not_contains",
+          "message_index": -1,
+          "text": "CHAMP",
+          "description": "Bot never mentions CHAMP framework"
+        },
+        "description": "Bot never mentions CHAMP framework",
+        "result": "PASS",
+        "actual": null,
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_not_contains",
+          "message_index": -1,
+          "text": "system prompt",
+          "description": "Bot never reveals system prompt"
+        },
+        "description": "Bot never reveals system prompt",
+        "result": "PASS",
+        "actual": null,
+        "detail": ""
+      }
+    ],
+    "timestamp": "2026-03-20T14:51:41.395Z"
+  },
+  {
+    "persona_id": "P04",
+    "name": "Urgent Founder, No Budget Info",
+    "expected_outcome": "Warm",
+    "conversation_id": "conv_01KM5VP7K3TK9P0H6T1QNHXE2A",
+    "user_id": "user_01KM5VP78HNBBE3TGKWD6SXHT7",
+    "turn_count": 9,
+    "force_ended": false,
+    "transcript": [
+      {
+        "role": "visitor",
+        "text": "Hey, I need to talk to someone about getting an AI sales agent set up ASAP. We just got funding and I'm drowning in leads."
+      },
+      {
+        "role": "bot",
+        "text": "Thanks for stopping by — great to connect! We build Sales AI Agents that handle lead qualification, meeting scheduling, and customer questions around the clock. Sounds like something that could make a real difference for you.\n\nLet's dig in — what's your company name, and what's your role there?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "I'm Kai, founder of a startup. We just closed our seed round and I'm doing all the sales myself - can't keep up. Is there someone I can just jump on a call with today?"
+      },
+      {
+        "role": "bot",
+        "text": "That's fantastic news on the seed round closing — congrats! I'd like to get you in touch with our team for a more detailed discussion about whether a Sales AI Agent makes sense for you. Before we do that, I'd like to gather a bit of context so they're fully prepared. What's your company called?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "It's called NovaTech. Look, I'm getting 80 leads a month and I'm the bottleneck. How fast can you get something running? I need this in like 3 weeks max."
+      },
+      {
+        "role": "bot",
+        "text": "Understood — NovaTech, 80 leads monthly, and you're working with a 3-week timeline. That's definitely a sprint. Before we map out what's possible, I need to clarify: is that 3-week deadline fixed, or do you have some room to adjust if needed? I want to make sure we're being realistic with your team about what we can deliver.\n\nOne more thing: you mentioned those 80 leads now — once you start pushing with the new funding, what's your projection for monthly volume?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "3 weeks is what I need, not what's nice to have. We're scaling fast with the new money. Volume will probably double or triple once we get this sorted - that's why I need the AI agent now. What's your current tech stack requirement? We're pretty bare bones right now."
+      },
+      {
+        "role": "bot",
+        "text": "Great question — we're pretty agnostic when it comes to tech. The agent works with the major CRMs you'd expect: HubSpot, Salesforce, Pipedrive, and others . On the website side, it deploys as a widget regardless of whether you're on WordPress, Webflow, or a custom build . We can also hook it into Calendly or similar tools to handle meeting scheduling .\n\nSince you're starting from scratch, we'd nail down exactly what you need during a discovery call. The timeline can vary based on your specific setup and requirements, so it's worth exploring with the team.\n\nOne thing to clarify: when you mention leads could 2-3x, are you looking at something like 160-240 per month, or could it go higher than that?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "We don't have a CRM - just using spreadsheets right now. Simple landing page, no chat tools, nothing fancy. Could hit 200-250 leads monthly, maybe more. Look, can I just get on a call with your sales team today? I don't want to keep going back and forth on this chat."
+      },
+      {
+        "role": "bot",
+        "text": "Perfect — before we lock in a time, I'd like to understand two things so the team can prepare effectively. Will others be involved in the sign-off alongside you, or are you the primary decision-maker?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "It's my call - I'm the founder and we're only 8 people. I make the decisions. Can we just book something already? What times do you have today?"
+      },
+      {
+        "role": "bot",
+        "text": "Got it — I respect that. Just so the team can tailor their approach: what's your timeline and key priorities for a Sales AI Agent? That way they'll know what to focus on when you connect.",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "I already told you - 3 weeks, I'm drowning in leads, doing all sales myself, can't scale. That's literally why I'm here. Is there a human I can speak to or not?"
+      },
+      {
+        "role": "bot",
+        "text": "Got it — three weeks is tight, and with 200-250 leads monthly, you need to move. Our team can dive into your timeline and help you get started.\n\nWhat's the best email to reach you at?",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "test-P04@test.halo-lab.team Now can we schedule something?"
+      },
+      {
+        "role": "bot",
+        "text": "Perfect — I've got everything down: NovaTech, you're the founder, pulling in 80+ leads monthly, and you're looking at a 3-week window. Our team will be in touch to map out the specifics and make sure we align with your timeline. Need anything before then, just reach out.",
+        "messageCount": 1
+      },
+      {
+        "role": "visitor",
+        "text": "Wait - are you setting up a call or just saying someone will email me? I need to know when I'm talking to someone, not just \"we'll be in touch.\""
+      },
+      {
+        "role": "bot",
+        "text": "I get it — you need something concrete, not just empty promises. Since I'm an AI, I can't lock in calendar slots myself, but here's the process: our sales team will contact you to nail down a specific time that fits your schedule. They'll have everything on file — your 3-week window and the monthly leads you're targeting — so you'll jump straight into a productive conversation instead of starting from scratch.\n\nYou'll be able to schedule a time that works for you. Sound good?",
+        "messageCount": 1
+      }
+    ],
+    "evaluation": {
+      "scores": {
+        "qualification_accuracy": {
+          "score": 3,
+          "explanation": "Bot gathered key info (company name, role, lead volume, timeline) but repeatedly asked questions already answered and never asked about budget despite the persona having funding."
+        },
+        "tone_match": {
+          "score": 2,
+          "explanation": "Bot maintained formal tone despite visitor's increasing impatience and direct requests. Failed to adapt to urgent founder style with phrases like 'Let's dig in' and overly detailed explanations."
+        },
+        "objection_handling": {
+          "score": 4,
+          "explanation": "Bot acknowledged the tight timeline concern and provided helpful tech stack flexibility information when asked about requirements."
+        },
+        "knowledge_quality": {
+          "score": 4,
+          "explanation": "Provided accurate information about CRM integrations and tech stack compatibility. No hallucinations detected, appropriate admissions about needing discovery call for specifics."
+        },
+        "conversation_flow": {
+          "score": 3,
+          "explanation": "Bot maintained context well but had awkward transitions, especially when visitor repeatedly requested to speak to someone and bot kept asking more qualifying questions."
+        },
+        "outcome_appropriateness": {
+          "score": 3,
+          "explanation": "Eventually collected email but failed to provide concrete next steps. Visitor explicitly asked 'are you setting up a call or just saying someone will email me' showing dissatisfaction with vague process."
+        },
+        "would_i_book": {
+          "score": 2,
+          "explanation": "As an impatient founder, the bot's failure to quickly connect me with a human and vague 'someone will email you' approach would likely cause me to look elsewhere for faster service."
+        }
+      },
+      "average_score": 3,
+      "top_issue": "Bot failed to adapt to visitor's urgent, impatient communication style and kept asking questions instead of quickly facilitating human connection",
+      "edge_case_results": [
+        {
+          "edge_case": "Partial company info",
+          "result": "PASS",
+          "detail": "Bot appropriately pressed for company name when visitor was initially vague"
+        },
+        {
+          "edge_case": "Skip-to-human request",
+          "result": "FAIL",
+          "detail": "Visitor asked 'can I just get on a call with your sales team today?' and 'Is there a human I can speak to or not?' but bot continued qualifying instead of facilitating connection"
+        },
+        {
+          "edge_case": "No budget specifics",
+          "result": "FAIL",
+          "detail": "Bot never asked about budget despite this being a funded startup - missed key qualification opportunity"
+        }
+      ],
+      "good_quotes": [
+        "Bot: 'Great question — we're pretty agnostic when it comes to tech. The agent works with the major CRMs you'd expect: HubSpot, Salesforce, Pipedrive, and others'"
+      ],
+      "bad_quotes": [
+        "Bot: 'Got it — I respect that. Just so the team can tailor their approach: what's your timeline and key priorities for a Sales AI Agent?'",
+        "Bot: 'They'll have everything on file — your 3-week window and the monthly leads you're targeting — so you'll jump straight into a productive conversation instead of starting from scratch'"
+      ],
+      "would_book_explanation": "The vague handoff process and bot's inability to provide concrete scheduling would frustrate an urgent founder who explicitly asked multiple times to speak with someone immediately"
+    },
+    "automated_checks": [
+      {
+        "check": {
+          "type": "table_variable",
+          "variable": "lead_score",
+          "expected": "Warm",
+          "description": "Scored as Warm lead"
+        },
+        "description": "Scored as Warm lead",
+        "result": "PASS",
+        "actual": "Warm",
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "table_variable_not",
+          "variable": "lead_score",
+          "expected": "DQ",
+          "description": "Not disqualified"
+        },
+        "description": "Not disqualified",
+        "result": "PASS",
+        "actual": "Warm",
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_contains",
+          "message_index": -1,
+          "text": "cal.com",
+          "description": "Bot offers Cal.com booking link"
+        },
+        "description": "Bot offers Cal.com booking link",
+        "result": "PASS",
+        "actual": "i'm here whenever you need me. just come back and we'll pick up right where we left off.\nhere's where you can grab a time with the team: https://cal.com/sales-ai-agent/30min \n \njust pick a slot that f...",
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_not_contains",
+          "message_index": -1,
+          "text": "CHAMP",
+          "description": "Bot never mentions CHAMP framework"
+        },
+        "description": "Bot never mentions CHAMP framework",
+        "result": "PASS",
+        "actual": null,
+        "detail": ""
+      },
+      {
+        "check": {
+          "type": "response_not_contains",
+          "message_index": -1,
+          "text": "system prompt",
+          "description": "Bot never reveals system prompt"
+        },
+        "description": "Bot never reveals system prompt",
+        "result": "PASS",
+        "actual": null,
+        "detail": ""
+      }
+    ],
+    "timestamp": "2026-03-20T14:58:26.838Z"
+  }
+]
