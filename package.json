@@ -1,20 +1,22 @@
 {
   "name": "sales-ai-agent-batch-tests",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Batch testing system for the Sales AI Agent (Botpress Cloud)",
+  "main": "batch_runner.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node batch_runner.js --mode all",
+    "test:scripted": "node batch_runner.js --mode scripted",
+    "test:persona": "node batch_runner.js --mode persona",
+    "test:dry": "node batch_runner.js --mode all --dry-run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.79.0",
     "@botpress/chat": "^0.5.5",
     "@botpress/client": "^1.36.0",
     "csv-parse": "^6.1.0",

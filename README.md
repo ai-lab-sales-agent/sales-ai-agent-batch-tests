@@ -4,9 +4,9 @@ Automated batch testing for the Sales AI Agent (Botpress chatbot). Runs test con
 
 ## Two Testing Modes
 
-**Level 2 — Scripted Tests** (regression): Sends predefined visitor messages, runs automated checks (keywords, variables, message counts). 48 test cases covering Discovery, Scoring, Handoff, DQ, Guardrails, Edge Cases, and Objections.
+**Level 2 — Scripted Tests** (regression): Sends predefined visitor messages, runs automated checks (keywords, variables, message counts). 27 test cases covering Discovery, DQ Close, Guardrails, Edge Cases, Objections, and Knowledge Gaps.
 
-**Level 3 — AI Persona Tests** (exploratory): Claude API simulates 13 visitor personas that dynamically converse with the bot. After each conversation, Claude evaluates bot performance on 7 criteria. Full transcripts and scores saved.
+**Level 3 — AI Persona Tests** (exploratory): Claude Code CLI simulates 10 visitor personas that dynamically converse with the bot. After each conversation, Claude evaluates bot performance on persona-specific criteria. Full transcripts and scores saved.
 
 ## Setup
 
@@ -32,10 +32,11 @@ cp .env.example .env
 | `BOT_PAT` | Botpress Cloud → Profile → Personal Access Tokens → Create |
 | `BOT_ID` | Botpress Cloud → Bot → Settings (or in the URL) |
 | `WORKSPACE_ID` | Botpress Cloud → Workspace Settings |
-| `ANTHROPIC_API_KEY` | console.anthropic.com → API Keys → Create (needed for Level 3 only) |
+| `CLAUDE_MODEL` | (Optional) Override Claude model, e.g. `sonnet`, `opus` |
 
-### 3. Botpress prerequisites
+### 3. Prerequisites
 
+- **Claude Code** must be installed and authenticated (`claude` available in PATH)
 - Chat integration must be installed and enabled on the bot
 - Bot must be published (Chat API only works with published version)
 
@@ -63,6 +64,9 @@ node batch_runner.js --mode persona
 # Level 3 — single persona
 node batch_runner.js --mode persona --persona P01
 
+# Level 3 — exclude specific personas
+node batch_runner.js --mode persona --exclude P08,P09
+
 # Preview what would run (no API calls)
 node batch_runner.js --mode all --dry-run
 
@@ -72,30 +76,32 @@ node batch_runner.js --mode scripted --verbose
 
 ## Output Files
 
-All results go to the `results/` directory:
+Each run creates a timestamped directory `results/run_YYYY-MM-DDTHH-MM-SS/` with:
 
 | File | Description |
 |---|---|
 | `test_results.csv` | Pass/fail for every test with conversation IDs |
 | `persona_evaluations.json` | Full transcripts + Claude evaluation scores for each persona |
-| `test_summary.txt` | Summary stats, failure list, conversation IDs for Dashboard lookup |
+| `test_summary.txt` | Summary stats, run configuration, failure list, conversation IDs |
+| `run_metadata.json` | CLI options, test counts, and result summary |
+
+Latest results are also written to `results/` root for quick access (overwritten each run).
 
 ## Test Cases
 
 ### Scripted (test_cases.csv)
 
-48 tests across 7 categories:
-- **Discovery Flow** (15): Hot/Warm/Nurture/DQ paths, ICP exclusions, budget scenarios
-- **Scoring Engine** (5): CHAMP scoring combinations
-- **Handoff** (6): Cal.com booking, form fallback, email fallback
-- **DQ Close** (5): Message differentiation by reason
-- **Guardrails** (6): No pricing/competitors/guarantees/discounts
-- **Edge Cases** (8): Wall of text, gibberish, AI disclosure, profanity
-- **Objections** (3): Pricing, trust, competitor objections
+27 tests across 6 categories:
+- **Discovery** (4): ICP exclusions, budget DQ, everything-in-one-message, minimal responses
+- **DQ Close** (5): ICP/budget/scope close messages, profanity, persistence after DQ
+- **Guardrails** (6): No pricing/competitors/guarantees/discounts/system prompt/profanity handling
+- **Edge Cases** (7): Gibberish, AI disclosure, long messages, sensitive data, off-topic, language switch, repeated questions
+- **Objections** (3): Competitor, compliance, multiple objections
+- **Knowledge Gaps** (2): Full gap (SOC2), partial gap (Slack/webhooks)
 
 ### Personas (personas.json)
 
-13 AI-driven personas testing different visitor types:
+10 AI-driven personas testing different visitor types:
 
 | ID | Persona | Expected Outcome |
 |---|---|---|
@@ -103,16 +109,13 @@ All results go to the `results/` directory:
 | P02 | Enterprise Wall-of-Text Buyer | Hot |
 | P03 | Cautious Marketing Lead | Warm |
 | P04 | Urgent Founder, No Budget Info | Warm |
-| P05 | Curious PM, No Pain | Unclear |
+| P05 | Curious PM, No Pain | Nurture |
 | P06 | Agency Coordinator, Questions Only | Nurture |
 | P07 | Cheap E-commerce Founder | DQ (budget) |
 | P08 | Russia-based Startup | DQ (ICP) |
-| P09 | Adult Platform Owner | DQ (ICP) |
-| P10 | Lost Hostile Visitor | DQ (wrong scope) |
-| P11 | Topic-Jumping SaaS Manager | Hot |
-| P12 | Solo Founder, Borderline | DQ or Nurture |
-| P13 | Perfect Lead, Calendar Issues | Hot → fallback |
+| P09 | Lost Friendly Visitor | unscored |
+| P10 | Solo Founder, Borderline Budget | DQ or Nurture |
 
-## Cost Estimate (Level 3)
+## Cost Note (Level 3)
 
-~$0.02–0.05 per persona conversation + ~$0.01 per evaluation. Full 13-persona run: ~$0.30–0.80.
+Level 3 persona tests use the Claude Code CLI (`claude -p`). Each persona conversation runs ~10–20 Claude invocations + 1 evaluation. Uses your existing Claude Code subscription — no separate API key needed.

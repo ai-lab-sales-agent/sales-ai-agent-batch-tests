@@ -70,6 +70,15 @@ Options:
 async function main() {
   const opts = parseArgs();
 
+  // Validate required env vars
+  const required = ['WEBHOOK_ID', 'BOT_PAT', 'BOT_ID', 'WORKSPACE_ID'];
+  for (const key of required) {
+    if (!process.env[key]) {
+      console.error(`Missing required env variable: ${key}. Check your .env file.`);
+      process.exit(1);
+    }
+  }
+
   if (!fs.existsSync(RESULTS_DIR)) {
     fs.mkdirSync(RESULTS_DIR, { recursive: true });
   }
@@ -84,7 +93,11 @@ async function main() {
     if (shuttingDown) process.exit(1);
     shuttingDown = true;
     console.log('\nInterrupted — writing partial results...');
-    saveResults(allScriptedResults, allPersonaResults, allPersonaEvaluations, opts);
+    try {
+      saveResults(allScriptedResults, allPersonaResults, allPersonaEvaluations, opts);
+    } catch (err) {
+      console.error('Failed to save partial results:', err.message);
+    }
     process.exit(0);
   });
 
@@ -225,7 +238,15 @@ async function runSingleScriptedTest(tc, chatClient, tablesClient, verbose) {
   }
   if (verbose) console.log(`  LeadsTable: ${tableRow ? 'found, lead_score=' + tableRow.lead_score : 'not found'}`);
 
-  const checkResults = runChecks(tc.expected_checks, allBotResponses, tableRow);
+  // Fetch extra tables for checks that need them
+  const contactFormRow = await tablesClient.findContactFormByConversationId(conversation.id);
+  const convLogRow = await tablesClient.findConversationLog(conversation.id);
+  if (verbose) {
+    console.log(`  ContactFormTable: ${contactFormRow ? 'found' : 'not found'}`);
+    console.log(`  Conversation_LogsTable: ${convLogRow ? 'found' : 'not found'}`);
+  }
+
+  const checkResults = runChecks(tc.expected_checks, allBotResponses, tableRow, { contactFormRow, convLogRow });
   const overall = computeOverallResult(checkResults);
 
   return {
@@ -242,16 +263,6 @@ async function runSingleScriptedTest(tc, chatClient, tablesClient, verbose) {
     errors: '',
     timestamp: new Date().toISOString()
   };
-}
-
-function extractTestEmail(tc) {
-  const emailPattern = /test-[\w-]+@test\.halo-lab\.team/i;
-  for (const msg of tc.visitor_messages) {
-    const match = msg.match(emailPattern);
-    if (match) return match[0];
-  }
-  // Fallback: construct from test_id
-  return `test-${tc.test_id.toLowerCase()}@test.halo-lab.team`;
 }
 
 // --- Persona Tests ---
@@ -333,18 +344,18 @@ async function runPersonaTests(chatClient, tablesClient, claudeClient, opts) {
         }
       }
       if (opts.verbose) console.log(`  LeadsTable lookup by visitor_id (${user.id}): ${tableRow ? 'found, lead_score=' + tableRow.lead_score : 'not found'}`);
+
+      // Fetch extra tables
       const contactFormRow = await tablesClient.findContactFormByConversationId(conversation.id);
-      const conversationLog = await tablesClient.findConversationLog(conversation.id);
+      const convLogRow = await tablesClient.findConversationLog(conversation.id);
       if (opts.verbose) {
-        console.log(`  LeadsTable: ${tableRow ? 'found' : 'not found'}`);
         console.log(`  ContactFormTable: ${contactFormRow ? 'found' : 'not found'}`);
-        console.log(`  Conversation_LogsTable: ${conversationLog ? 'found' : 'not found'}`);
+        console.log(`  Conversation_LogsTable: ${convLogRow ? 'found' : 'not found'}`);
       }
 
       // Run automated checks using ALL bot messages (including post-timeout closing messages)
       const allBotResponses = postTimeoutBotMessages.map(m => ({ text: m.text, messageCount: 1 }));
-      const checkResults = runChecks(persona.expected_checks || [],
-        allBotResponses, tableRow, { contactFormRow, conversationLog });
+      const checkResults = runChecks(persona.expected_checks || [], allBotResponses, tableRow, { contactFormRow, convLogRow });
       const overall = computeOverallResult(checkResults);
 
       const messageCounts = transcript.filter(t => t.role === 'bot').map(t => t.messageCount || 1);
