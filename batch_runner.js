@@ -76,6 +76,7 @@ async function main() {
 
   const allScriptedResults = [];
   const allPersonaResults = [];
+  let allPersonaEvaluations = [];
 
   // Graceful shutdown — write partial results
   let shuttingDown = false;
@@ -83,7 +84,7 @@ async function main() {
     if (shuttingDown) process.exit(1);
     shuttingDown = true;
     console.log('\nInterrupted — writing partial results...');
-    saveResults(allScriptedResults, allPersonaResults);
+    saveResults(allScriptedResults, allPersonaResults, allPersonaEvaluations, opts);
     process.exit(0);
   });
 
@@ -101,12 +102,13 @@ async function main() {
   }
 
   if (opts.mode === 'persona' || opts.mode === 'all') {
-    const claudeClient = createClaudeClient(process.env.ANTHROPIC_API_KEY);
-    const results = await runPersonaTests(chatClient, tablesClient, claudeClient, opts);
+    const claudeClient = createClaudeClient();
+    const { results, evaluations } = await runPersonaTests(chatClient, tablesClient, claudeClient, opts);
     allPersonaResults.push(...results);
+    allPersonaEvaluations.push(...evaluations);
   }
 
-  saveResults(allScriptedResults, allPersonaResults);
+  saveResults(allScriptedResults, allPersonaResults, allPersonaEvaluations, opts);
   console.log('\nDone. Results saved to results/ directory.');
 }
 
@@ -277,7 +279,7 @@ async function runPersonaTests(chatClient, tablesClient, claudeClient, opts) {
     for (const p of personas) {
       console.log(`  [DRY RUN] ${p.persona_id} — ${p.name} — expected: ${p.expected_outcome}, max turns: ${p.max_turns || 20}`);
     }
-    return [];
+    return { results: [], evaluations: [] };
   }
 
   const results = [];
@@ -404,22 +406,12 @@ async function runPersonaTests(chatClient, tablesClient, claudeClient, opts) {
     }
   }
 
-  // Write persona evaluations (will be copied to run dir by saveResults caller)
-  if (evaluations.length > 0) {
-    fs.writeFileSync(
-      path.join(RESULTS_DIR, 'persona_evaluations.json'),
-      JSON.stringify(evaluations, null, 2)
-    );
-  }
-  // Store for run dir saving
-  global._personaEvaluations = evaluations;
-
-  return results;
+  return { results, evaluations };
 }
 
 // --- Output ---
 
-function saveResults(scriptedResults, personaResults) {
+function saveResults(scriptedResults, personaResults, personaEvaluations, opts) {
   const allResults = [...scriptedResults, ...personaResults];
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
   const runDir = path.join(RESULTS_DIR, `run_${timestamp}`);
@@ -428,21 +420,40 @@ function saveResults(scriptedResults, personaResults) {
   if (allResults.length > 0) {
     writeResults(path.join(runDir, 'test_results.csv'), allResults);
   }
-  writeSummary(path.join(runDir, 'test_summary.txt'), scriptedResults, personaResults);
+  writeSummary(path.join(runDir, 'test_summary.txt'), scriptedResults, personaResults, opts);
 
   // Also write latest (symlink-like) for quick access
   if (allResults.length > 0) {
     writeResults(path.join(RESULTS_DIR, 'test_results.csv'), allResults);
   }
-  writeSummary(path.join(RESULTS_DIR, 'test_summary.txt'), scriptedResults, personaResults);
+  writeSummary(path.join(RESULTS_DIR, 'test_summary.txt'), scriptedResults, personaResults, opts);
 
-  // Copy persona evaluations to run dir
-  if (global._personaEvaluations && global._personaEvaluations.length > 0) {
-    fs.writeFileSync(
-      path.join(runDir, 'persona_evaluations.json'),
-      JSON.stringify(global._personaEvaluations, null, 2)
-    );
+  // Write persona evaluations
+  if (personaEvaluations && personaEvaluations.length > 0) {
+    const evalJson = JSON.stringify(personaEvaluations, null, 2);
+    fs.writeFileSync(path.join(runDir, 'persona_evaluations.json'), evalJson);
+    fs.writeFileSync(path.join(RESULTS_DIR, 'persona_evaluations.json'), evalJson);
   }
+
+  // Write run metadata
+  const resultCounts = {};
+  for (const r of allResults) {
+    resultCounts[r.overall_result] = (resultCounts[r.overall_result] || 0) + 1;
+  }
+  const metadata = {
+    timestamp: new Date().toISOString(),
+    cli_options: opts || {},
+    test_counts: {
+      scripted: scriptedResults.length,
+      persona: personaResults.length,
+      total: allResults.length
+    },
+    results_summary: resultCounts
+  };
+  fs.writeFileSync(
+    path.join(runDir, 'run_metadata.json'),
+    JSON.stringify(metadata, null, 2)
+  );
 
   console.log(`Results saved to ${runDir}`);
 }
